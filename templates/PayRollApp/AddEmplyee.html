@@ -1,0 +1,14 @@
+{% extends "./layout.html" %} {% block content %}
+<h2 class="mb-5">Employee Addition</h2>
+<div>
+    <form action="" method="post">
+        <table class="table table-striped">
+            {{form.as_table}}
+        </table>
+        {% csrf_token %}
+        <a href="{% url "ShowEmployeesPage" %}" class="btn btn-light ">Back To List</a>
+        <input type="submit" value="Add Employee" class="btn btn-success">
+    </form>
+   
+</div>
+{% endblock content %}

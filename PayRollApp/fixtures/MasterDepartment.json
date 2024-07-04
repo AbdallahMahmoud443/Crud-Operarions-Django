@@ -1,0 +1,50 @@
+[
+    {
+        "model":"PayRollApp.Departments",
+        "pk":1,
+        "fields":{
+            "DeprtName":"IT",
+            "location":"First floor"
+        }
+    },
+    {
+        "model":"PayRollApp.Departments",
+        "pk":2,
+        "fields":{
+            "DeprtName":"Testing",
+            "location":"Second floor"
+        }
+    },
+    {
+        "model":"PayRollApp.Departments",
+        "pk":3,
+        "fields":{
+            "DeprtName":"Development",
+            "location":"third floor"
+        }
+    },
+    {
+        "model":"PayRollApp.Departments",
+        "pk":4,
+        "fields":{
+            "DeprtName":"Designers",
+            "location":"Second floor"
+        }
+    },
+    {
+        "model":"PayRollApp.Departments",
+        "pk":5,
+        "fields":{
+            "DeprtName":"Mangers",
+            "location":"First floor"
+        }
+    },
+    {
+        "model":"PayRollApp.Departments",
+        "pk":6,
+        "fields":{
+            "DeprtName":"Accounting",
+            "location":"Second floor"
+        }
+    }
+]

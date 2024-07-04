@@ -1,0 +1,65 @@
+{% extends "./layout.html" %} {% block content %}
+<h2 class="mb-5">Employee Details</h2>
+<table class="table">
+  <tr>
+    <td>Employee ID</td>
+    <td>{{employee.id}}</td>
+  </tr>
+  <tr>
+    <td>FirstName</td>
+    <td>{{employee.FirstName}}</td>
+  </tr>
+
+  <tr>
+    <td>LastName</td>
+    <td>{{employee.LastName}}</td>
+  </tr>
+  <tr>
+    <td>HasPassport</td>
+    <td>{{employee.HasPassport}}</td>
+  </tr>
+  <tr>
+    <td>Salary</td>
+    <td>{{employee.Salary}}</td>
+  </tr>
+  <tr>
+    <td>BirthDate</td>
+    <td>{{employee.BirthDate}}</td>
+  </tr>
+  <tr>
+    <td>HireDate</td>
+    <td>{{employee.HireDate}}</td>
+  </tr>
+  <tr>
+    <td>Notes</td>
+    <td>{{employee.Notes}}</td>
+  </tr>
+  <tr>
+    <td>Email</td>
+    <td>{{employee.Email}}</td>
+  </tr>
+  <tr>
+    <td>PhoneNumber</td>
+    <td>{{employee.Phone}}</td>
+  </tr>
+  <tr>
+    <td>Departmet</td>
+    <td>{{employee.EmpDepartment.DeprtName}}</td>
+  </tr>
+  <tr>
+    <td>Location</td>
+    <td>{{employee.EmpDepartment.location}}</td>
+  </tr>
+  <tr>
+    <td>Country</td>
+    <td>{{employee.EmpCountry.CountryName}}</td>
+  </tr>
+</table>
+
+{% comment "ShowEmployeesPage" %}
+  ShowEmployeesPage => is name of url of page
+{% endcomment %}
+<div>
+    <a href="{% url "ShowEmployeesPage" %}" class="btn btn-light">Back To List</a>
+</div>
+{% endblock content %}
