@@ -2,9 +2,61 @@
 <h2 class="mb-5">Employee Addition</h2>
 <div>
     <form action="" method="post">
+        {% comment %} <table class="table table-striped">
+            {{form.as_table}} => used for fixed layout in design of page as table form 
+        </table> {% endcomment %}
+        {% comment %} if you want to control of field position in page should extract it one by ont  {% endcomment %}
         <table class="table table-striped">
-            {{form.as_table}}
+            <tr>
+                <th>FirstName</th>
+                <td>{{form.FirstName}}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{form.LastName}}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{form.TitleName}}</td>
+            </tr>
+            <tr>
+                <th>Has Passport ?</th>
+                <td>{{form.HasPassport}}</td>
+            </tr>
+            <tr>
+                <th>Salary</th>
+                <td>{{form.Salary}}</td>
+            </tr>
+            <tr>
+                <th>Birth Date</th>
+                <td>{{form.BirthDate}}</td>
+            </tr>
+            <tr>
+                <th>Hire Date</th>
+                <td>{{form.HireDate}}</td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td>{{form.Notes}}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{form.Email}}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{form.Phone}}</td>
+            </tr>
+            <tr>
+                <th>Department</th>
+                <td>{{form.EmpDepartment}}</td>
+            </tr>
+            <tr>
+                <th>Country</th>
+                <td>{{form.EmpCountry}}</td>
+            </tr>
         </table>
+
         {% csrf_token %}
         <a href="{% url "ShowEmployeesPage" %}" class="btn btn-light ">Back To List</a>
         <input type="submit" value="Add Employee" class="btn btn-success">
