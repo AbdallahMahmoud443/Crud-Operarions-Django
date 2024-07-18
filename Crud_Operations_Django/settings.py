@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'PayRollApp' # First Add PayRollApp In Project
+    'PayRollApp', # First Add PayRollApp In Project
+    'CompanyInfo'
 ]
 
 MIDDLEWARE = [

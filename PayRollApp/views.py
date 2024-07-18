@@ -5,7 +5,7 @@ from PayRollApp.models import Employee  # type: ignore
 from django.shortcuts import redirect # type: ignore
 
 
-# Create your views here.
+
 def EmployeeList(request):
     # employees = Employee.objects.all() # To Get All Record In Table of Employee
     # ORM Doesn't execute query until you need data that is returned by this query (lazy loading)
@@ -21,8 +21,7 @@ def EmployeeDetails(request,id):
     pagePath = "PayRollApp/EmployeeDetails.html"
     dict = {"employee":employee[0]} # Access First Record  That cause query will execute in database
     return render(request,pagePath,dict)
-
-    
+ 
 def EmployeeDelete(request,id):
     # To Show Information
     employee = Employee.objects.select_related('EmpDepartment','EmpCountry').all().filter(id=id) # filter return  List of object
@@ -46,7 +45,6 @@ def EmployeeUpdate(request,id):
             return redirect('ShowEmployeesPage') # redirect(name of url)
     return render(request,pagePath,dict)
 
-
 def AddEmployee(request):
     pagePath = "PayRollApp/AddEmplyee.html"
     form = EmployeeForm()
@@ -57,4 +55,5 @@ def AddEmployee(request):
             form.save()
             return redirect('ShowEmployeesPage') # redirect(name of url)
     return render(request,pagePath,dict)
+
 
