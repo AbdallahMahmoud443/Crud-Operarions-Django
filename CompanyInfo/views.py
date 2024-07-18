@@ -20,7 +20,6 @@ def BulkInsertEmployess(request):
                                     'extra_forms':range(extra_forms),
                                     'status':status})
 
-
 # second way for bulk inseting 
 def BulkInsertEmployessNew(request):
     # GET request
@@ -33,3 +32,24 @@ def BulkInsertEmployessNew(request):
             return redirect('bulkInsertNewPage') # name of url 
             
     return render(request,'CompanyInfo/BulkInsertNew.html',{'formset':formset})
+
+# Update Employees
+def BulkUpdateEmployee(request):
+    employees= EmployeesInfo.objects.all();
+    forms = [EmployeeInfoForm(request.POST or None,instance=employee,prefix=f'employee-{employee.id}') for employee in  employees]
+    if request.method == 'POST':
+        update_employees =[]
+        for form in forms:
+            if form.is_valid():
+               employee = form.instance # employee Object
+               employee.FirstName = form.cleaned_data.get('FirstName') # form value
+               employee.LastName = form.cleaned_data.get('LastName')# form value
+               employee.job = form.cleaned_data.get('job')# form value
+               update_employees.append(employee) # update_employees is list of employees
+        EmployeesInfo.objects.bulk_update(update_employees,fields=['FirstName','LastName','job'])
+        return redirect('bulkUpdatePage')
+        
+                
+    
+    
+    return render(request,'CompanyInfo/BulkUpdate.html',{'forms':forms,'employees':employees})
