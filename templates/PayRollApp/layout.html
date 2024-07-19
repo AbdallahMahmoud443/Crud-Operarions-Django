@@ -18,5 +18,11 @@
     {% endblock content %}
     </div>
     <script src="{% static "javascript/bootstrap.min.js" %}"></script>
+    <script>
+    // this code related with dynamic paginator
+    const updatePageSize = function updatePageSize(){
+        document.getElementById('page_size_form').submit();
+    }
+    </script>
 </body>
 </html>

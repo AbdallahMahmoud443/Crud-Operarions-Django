@@ -3,7 +3,8 @@ from django.shortcuts import render # type: ignore
 from PayRollApp.forms import EmployeeForm
 from PayRollApp.models import Employee  # type: ignore
 from django.shortcuts import redirect # type: ignore
-
+from django.core.paginator import Paginator,PageNotAnInteger # type: ignore
+from django.conf import settings # type: ignore
 
 
 def EmployeeList(request):
@@ -56,4 +57,17 @@ def AddEmployee(request):
             return redirect('ShowEmployeesPage') # redirect(name of url)
     return render(request,pagePath,dict)
 
-
+# related with paginator
+def PageWiseEmployeesList(request):
+    page_size = int(request.GET.get('page_size',getattr(settings,'PAGE_SIZE',3))) # PAGE_SIZE =>variable in settings file or 5 by default
+    page = request.GET.get('page',1)
+    Employees = Employee.objects.select_related('EmpDepartment','EmpCountry').all()
+    paginator = Paginator(Employees,page_size) 
+    try:
+        employees_page =paginator.page(page)
+    except PageNotAnInteger:
+        employees_page =paginator.page(1)
+    return render(request,'PayRollApp/WiseEmployeesList.html',{
+        'Employees_Page':employees_page,
+        'page_size':page_size
+    })

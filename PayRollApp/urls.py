@@ -6,4 +6,5 @@ urlpatterns = [
     path('deleteemployee/<int:id>',views.EmployeeDelete,name="DeleteEmployeePage"),
     path('updateemployee/<int:id>',views.EmployeeUpdate,name="UpdateEmployeePage"),
     path('addemployee',views.AddEmployee,name="AddEmployeePage"),
+     path('wiseemployees',views.PageWiseEmployeesList,name="wiseEmployeesPage"),
 ]

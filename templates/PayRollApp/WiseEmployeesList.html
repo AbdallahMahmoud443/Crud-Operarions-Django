@@ -1,0 +1,65 @@
+{% extends "./layout.html" %} {% block content %}
+
+<div class="row  justify-content-between mb-2">
+  <h2 class="d-block">Employee List</h2>
+
+  <form action="" method="get" id="page_size_form">
+    <label for="page_size">Items Per Page:</label>
+    <select name="page_size" id="page_size" class="form-select w-25 d-inline-block" onchange="updatePageSize()">
+      <option value="2" {% if page_size == 2 %} selected {% endif %}>2</option>
+      <option value="3" {% if page_size == 3 %} selected {% endif %}>3</option>
+      <option value="4" {% if page_size == 4 %} selected {% endif %}>4</option>
+      <option value="5" {% if page_size == 5 %} selected {% endif %}>5</option>
+    </select>
+  </form>
+
+</div>
+
+<table class="table table-striped">
+  <caption>
+    Employees List With Pagination
+  </caption>
+  <thead>
+    <tr>
+      <th>Employee ID</th>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Salary</th>
+      <th>Hire Data</th>
+      <th>Email</th>
+      <th>Department</th>
+      <th>Location</th>
+      <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for employee in Employees_Page %}
+    <tr>
+      <td>{{employee.id}}</td>
+      <td>{{employee.FirstName}}</td>
+      <td>{{employee.LastName}}</td>
+      <td>{{employee.Salary}}</td>
+      <td>{{employee.HireDate}}</td>
+      <td>{{employee.Email}}</td>
+      <td>{{employee.EmpDepartment.DeprtName}}</td>
+      <td>{{employee.EmpDepartment.location}}</td>
+      <td>{{employee.EmpCountry.CountryName}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<nav>
+  <ul class="pagination">
+    {% for num_page in Employees_Page.paginator.page_range %}
+    <li
+      class="page-item {% if num_page == Employees_Page.number%} active {% endif %}"
+    >
+      <a class="page-link" href="?page={{num_page}}&page_size={{page_size}}"
+        >{{num_page}}</a
+      >
+    </li>
+    {% endfor %}
+  </ul>
+</nav>
+
+{% endblock content %}
