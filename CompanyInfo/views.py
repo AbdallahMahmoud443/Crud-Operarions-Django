@@ -29,8 +29,7 @@ def BulkInsertEmployessNew(request):
         if formset.is_valid():
             employees = formset.save(commit=False) # don't commit data to database directly
             EmployeesInfo.objects.bulk_create(employees) # save all employees at one time used bulk_create method
-            return redirect('bulkInsertNewPage') # name of url 
-            
+            return redirect('bulkInsertNewPage') # name of url       
     return render(request,'CompanyInfo/BulkInsertNew.html',{'formset':formset})
 
 # Update Employees
@@ -42,14 +41,32 @@ def BulkUpdateEmployee(request):
         for form in forms:
             if form.is_valid():
                employee = form.instance # employee Object
+               # override old values of form
                employee.FirstName = form.cleaned_data.get('FirstName') # form value
                employee.LastName = form.cleaned_data.get('LastName')# form value
                employee.job = form.cleaned_data.get('job')# form value
                update_employees.append(employee) # update_employees is list of employees
         EmployeesInfo.objects.bulk_update(update_employees,fields=['FirstName','LastName','job'])
         return redirect('bulkUpdatePage')
-        
-                
-    
-    
     return render(request,'CompanyInfo/BulkUpdate.html',{'forms':forms,'employees':employees})
+
+# Bulk Delete with CheckBox
+def ListOfEmployees(request):
+    employees = EmployeesInfo.objects.all();
+    pagePath = 'CompanyInfo/ListEmployees.html'
+    if request.method == "POST":
+        selected_ids = request.POST.getlist('select_ids') # list of ids
+        if selected_ids:
+            EmployeesInfo.objects.filter(pk__in=selected_ids).delete()  # selected_ids => list
+            return redirect('bulkDeletePage')
+        
+    return render(request,pagePath,{'employees':employees})
+
+# Bulk Delete with Radio Button
+def BulkDeleteDemoRadioButton(request):
+    employees = EmployeesInfo.objects.all();
+    if request.method =="POST":
+        employee_id = request.POST.get('select_ids')
+        EmployeesInfo.objects.filter(pk=employee_id).delete() # employee_id => one value
+        return redirect('bulkDeleteRadioPage')
+    return render(request,'CompanyInfo/Bulkdelete.html',{'employees':employees})

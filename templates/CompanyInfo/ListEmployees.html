@@ -1,0 +1,54 @@
+{% extends "./layout.html" %} {% block content %}
+<h2>Bulk Delete Operation</h2>
+<form action="" method="post" class="mt-4">
+  {% csrf_token %}
+  <div class="row fw-bold">
+    <div class="col-md-2 mb-3">
+      <input type="checkbox" id="select_all" />
+      <span >SelectAll</span>
+    </div>
+    <div class="col-md-1 mb-3">
+      <span>ID</span>
+    </div>
+    <div class="col-md-3 mb-3">
+      <span>FirstName</span>
+    </div>
+    <div class="col-md-3 mb-3">
+      <span>LastName</span>
+    </div>
+    <div class="col-md-3 mb-3">
+      <span>Job</span>
+    </div>
+  </div>
+
+  {% for employee in employees %}
+  <div class="row">
+    <div class="col-md-2 mb-3">
+      <input
+        type="checkbox"
+        name="select_ids"
+        value="{{employee.id}}"
+        class="row-checkbox"
+      />
+    </div>
+    <div class="col-md-1 mb-3">
+      <span>{{employee.id}}</span>
+    </div>
+    <div class="col-md-3 mb-3">
+      <span>{{employee.FirstName}}</span>
+    </div>
+    <div class="col-md-3 mb-3">
+      <span>{{employee.LastName}}</span>
+    </div>
+    <div class="col-md-3 mb-3">
+      <span>{{employee.job}}</span>
+    </div>
+  </div>
+  {% endfor %}
+
+  <button type="submit" class="btn btn-danger" id="bulk-delete" formnovalidate="formnovalidate">
+    Delete Employees
+  </button>
+</form>
+
+{% endblock content %}
