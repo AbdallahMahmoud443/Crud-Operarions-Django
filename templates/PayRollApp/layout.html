@@ -19,12 +19,60 @@
         
     {% endblock content %}
     </div>
+    <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="{% static "javascript/bootstrap.min.js" %}"></script>
     <script>
     // this code related with dynamic paginator
-    const updatePageSize = function updatePageSize(){
+    const updatePageSize = function (){
         document.getElementById('page_size_form').submit();
     }
+
+       // this code related with cascading dropdown List
+       $(document).ready(function(){
+        // remove all values from two select boxes at beganing
+        $('#id_state').empty();
+        $('#id_city').empty();
+
+        // related with states
+        $('#id_country').change(function(){
+            const contryId = $(this).val();
+            $.ajax({
+                url:'{% url 'load_states' %}',
+                data:{'country_id':contryId},
+                dataType:'json',
+                success:function(data){ // data => json responses from FBV
+                    const stateSelected = $('#id_state');
+                    stateSelected.empty(); /// remove items (Important) 
+                    $.each(data,function(key,value){ // foreach loop
+                        stateSelected.append('<option value="'+value.id+'">'+ value.name + '</option>')
+                    });
+                    stateSelected.change(); // city selected at beganing (important)
+                },
+            });
+        });
+            // related with cities
+            $('#id_state').change(function(){
+                const stateId = $(this).val();
+                $.ajax({
+                    url:'{% url 'load_cities' %}',
+                    data:{'state_id':stateId},
+                    dataType:'json',
+                    success:function(data){ // data => json responses from FBV
+                        const citySelected = $('#id_city');
+                        citySelected.empty(); /// remove items (Important) 
+                        $.each(data,function(key,value){ // foreach loop
+                            citySelected.append('<option value="'+value.id+'">'+ value.name + '</option>')
+                        });
+                        //stateSelected.change();
+                    },
+                });
+
+        });
+
+
+    });
+ 
     </script>
+
 </body>
 </html>

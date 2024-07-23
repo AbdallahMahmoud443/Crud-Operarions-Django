@@ -1,11 +1,12 @@
 from django.shortcuts import render # type: ignore
 
-from PayRollApp.forms import EmployeeForm
-from PayRollApp.models import Employee  # type: ignore
+from PayRollApp.forms import EmployeeForm, OnSiteEmployeesForm
+from PayRollApp.models import City, Employee, State  # type: ignore
 from django.shortcuts import redirect # type: ignore
 from django.core.paginator import Paginator,PageNotAnInteger # type: ignore
 from django.conf import settings # type: ignore
-from django.db.models import Q
+from django.db.models import Q # type: ignore
+from django.http import JsonResponse
 
 def EmployeeList(request):
     # employees = Employee.objects.all() # To Get All Record In Table of Employee
@@ -102,3 +103,31 @@ def PageWiseEmployeesList(request):
         #'sort_by':sort_by,
         #'sort_order':sort_order
     })
+
+
+# Cascading DropDown List
+def cascadingSelect(request):
+    employeeForm = OnSiteEmployeesForm()
+    if request.method =="POST":
+        employeeForm = OnSiteEmployeesForm(request.POST)
+        if employeeForm.is_valid():
+           employeeForm.save()
+           return JsonResponse({'success':True})
+    return render(request,'PayRollApp/cascadingSelect.html',{'form':employeeForm})
+
+def load_states(request):
+    country_id = request.GET.get('country_id')
+    print(country_id)
+    state = State.objects.filter(country_id=country_id).values('id','name') # id & name => columns names in State table
+    print(list(state))
+    return JsonResponse(list(state),safe=False)
+
+def load_Cities(request):
+    state_id = request.GET.get('state_id')
+    print(state_id)
+    cities = City.objects.filter(state_id=state_id).values('id','name') # id & name => columns names in State table
+    return JsonResponse(list(cities),safe=False) # safe => realted with script injection
+    
+    
+    
+

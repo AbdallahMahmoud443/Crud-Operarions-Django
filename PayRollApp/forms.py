@@ -1,5 +1,5 @@
 from django import forms
-from PayRollApp.models import Employee
+from PayRollApp.models import Employee, OnSiteEmployees
 
 
 # Creating form based model 
@@ -25,4 +25,25 @@ class EmployeeForm(forms.ModelForm):
         }
         
  
-    
+class OnSiteEmployeesForm(forms.ModelForm):
+  class Meta:
+    model = OnSiteEmployees
+    fields = ['firstName','lastName','country','state','city']
+    widgets={ # used to custimize type of inputfield
+        
+            "firstName":forms.widgets.TextInput(attrs={"class":"form-control w-25 my-1",
+                                                      "placeholder":"First Name"}),
+            
+            "lastName":forms.widgets.TextInput(attrs={"class":"form-control w-25 my-1",
+                                                      "placeholder":"Last Name"}),
+            
+            "country":forms.widgets.Select(attrs={"class":"form-select w-25 my-1",
+                                                  }),
+            
+            "state":forms.widgets.Select(attrs={"class":"form-select w-25 my-1",
+                                              }),
+            
+            "city":forms.widgets.Select(attrs={"class":"form-select w-25 my-1",
+                                           }),
+          }
+  

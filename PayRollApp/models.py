@@ -41,3 +41,29 @@ class Employee(models.Model):
     
     def __str__(self):
         return self.FirstName +' '+ self.LastName
+
+# Cascading dropdown Lists
+class State(models.Model):
+    name = models.CharField(max_length=100,null=True)
+    country = models.ForeignKey(Countries,on_delete=models.PROTECT,default=None)
+    
+    def __str__(self):
+        return self.name
+
+class City(models.Model):
+    name = models.CharField(max_length=100,null=True)
+    state = models.ForeignKey(State,on_delete=models.PROTECT,default=True)
+    
+    def __str__(self):
+        return self.name
+
+class OnSiteEmployees(models.Model):
+    firstName=models.CharField(max_length=50,null=True)
+    lastName=models.CharField(max_length=50,null=True)
+    country=models.ForeignKey(Countries,on_delete=models.PROTECT,default=None)
+    state=models.ForeignKey(State,on_delete=models.PROTECT,default=None)
+    city=models.ForeignKey(City,on_delete=models.PROTECT,default=None)
+    
+    def __str__(self):
+        return self.firstName +' '+self.lastName
+    
