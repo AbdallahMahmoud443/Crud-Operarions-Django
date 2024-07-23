@@ -2,7 +2,7 @@ from django.shortcuts import render # type: ignore
 from CompanyInfo.forms import EmployeeInfoForm, EmployeeInfoFormSet
 from CompanyInfo.models import EmployeesInfo
 from django.shortcuts import redirect # type: ignore
-
+from django.db import transaction
 # Create your views here.
 
 # insert Mutiple Employee at one time 
@@ -70,3 +70,23 @@ def BulkDeleteDemoRadioButton(request):
         EmployeesInfo.objects.filter(pk=employee_id).delete() # employee_id => one value
         return redirect('bulkDeleteRadioPage')
     return render(request,'CompanyInfo/Bulkdelete.html',{'employees':employees})
+
+def TransactionDemo(request):
+    try:
+        with transaction.atomic(): 
+            '''
+            transaction.atomic => anything cause error all transaction will rollback 
+            don't excuted in database  (this is very important)
+            example : if you work (updated & insert data ) in two depending table in same time
+            in cause of error no sql statement execute in database
+            '''  
+            employee = EmployeesInfo.objects.create(FirstName="Adam",LastName="Abdallah",job="Doctor")
+            employee = EmployeesInfo.objects.create(FirstName="Hossam",LastName="mohamed",job="Accountant")
+            employee = EmployeesInfo.objects.create(FirstNames="Sayed",LastName="nagy",job="Teacher")
+            employee = EmployeesInfo.objects.create(FirstName="Sara",LastName="Habibe",job="nurse")
+            employee = EmployeesInfo.objects.create(FirstName="Nour",LastName="Ahmed",job="officer")
+            employee = EmployeesInfo.objects.create(FirstName="Hassan",LastName="Ali",job="pilot")
+    except Exception as e:
+        return render(request,'CompanyInfo/TransactionDemo.html',{'Message':str(e)})
+    return render(request,'CompanyInfo/TransactionDemo.html',{'Message':'success'})
+    

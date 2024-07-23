@@ -7,4 +7,5 @@ urlpatterns = [
    path('bulkupdate',views.BulkUpdateEmployee,name="bulkUpdatePage"),
    path('bulkdelete',views.ListOfEmployees,name="bulkDeletePage"),
    path('bulkdeleteradio',views.BulkDeleteDemoRadioButton,name="bulkDeleteRadioPage"),
+   path('tansactiondemo',views.TransactionDemo,name="tansactionDemoPage"),
 ]

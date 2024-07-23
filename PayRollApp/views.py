@@ -124,7 +124,6 @@ def load_states(request):
 
 def load_Cities(request):
     state_id = request.GET.get('state_id')
-    print(state_id)
     cities = City.objects.filter(state_id=state_id).values('id','name') # id & name => columns names in State table
     return JsonResponse(list(cities),safe=False) # safe => realted with script injection
     
