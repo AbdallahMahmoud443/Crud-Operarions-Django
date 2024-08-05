@@ -137,3 +137,8 @@ STATICFILES_DIRS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PAGE_SIZE = 4 # related with pagination
+
+
+# for change time of expire session 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_COOKIE_AGE = 60 * 5 # 5 Minutes

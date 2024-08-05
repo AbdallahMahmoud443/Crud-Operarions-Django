@@ -1,0 +1,46 @@
+{% extends "./layout.html" %}
+
+{% block content %}
+    <div class="row">
+        <h2>Session Page</h2>
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+          
+                {% for key,value in  sessions %}
+                <tr>
+                    <th>{{key}}</th>
+                    <th>{{value}}</th>
+                    <th> 
+                        <a href="{% url 'ViewSessionPage' key %}" class="btn btn-primary">View</a>
+                        <a href="{% url 'DeleteSessionPage' key %}" class="btn btn-danger">Delete</a>
+                    
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="row w-25 mt-4">
+            <h3>Add Session</h3>
+            <form action="{% url 'CreateSessionPage' %}" method="post">
+                {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="session_name" class="form-label" >Session Name</label>
+                      <input type="text" class="form-control" id="session_name" name="session_name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="session_value" class="form-label">Session Value</label>
+                      <input type="text" class="form-control" id="session_value" name="session_value">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Session</button> 
+                    <a href="{% url 'ClearSessionsPage' %}" class="btn btn-danger w-auto">Clear All Cookies</a>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

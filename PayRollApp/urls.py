@@ -15,4 +15,11 @@ urlpatterns = [
     path('clearcookie',views.clear_cookies,name='clear_Cookie_Page'),
     path('viewcookie/<str:cookie_name>',views.view_cookie,name='View_Cookie_Page'),
     path('deletecookie/<str:cookie_name>',views.delete_cookie,name='Delete_Cookie_Page'),
+    path('sessions',views.Session_Page,name='Session_Page'),
+    path('createsession',views.Create_Session,name='CreateSessionPage'),
+    path('clearsessions',views.clear_cookies,name='ClearSessionsPage'),
+    path('viewsession/<str:session_name>',views.View_Session,name='ViewSessionPage'),
+    path('deletesession/<str:session_name>',views.Delete_session,name='DeleteSessionPage')
+    
+    
 ]

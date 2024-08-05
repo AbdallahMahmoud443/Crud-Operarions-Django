@@ -1,0 +1,12 @@
+{% extends "./layout.html" %}
+
+{% block content %}
+    <div class="raw">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">{{session_name}}</h4>
+            <p>{{session_value}}</p>
+            <hr>
+            <p class="mb-0"><a href="{% url 'Session_Page' %}" class="alert-link">Back To Session Page</a></p>
+          </div>
+    </div>
+{% endblock content %}

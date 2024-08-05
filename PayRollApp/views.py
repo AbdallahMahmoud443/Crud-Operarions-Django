@@ -163,3 +163,41 @@ def delete_cookie(request,cookie_name):
     response  = HttpResponseRedirect(reverse('Cookie_Page'))
     response.delete_cookie(cookie_name)
     return response
+
+
+'''
+1-Session in Djnaog By Default take 2 weeks to removed
+2-Session stored in database in binary format in default table called sessions
+3- To Change Default Behavior of Django should change in settings file and add two variables
+
+
+'''
+def Session_Page(request):
+    sessions = request.session.items()
+    return render(request,'PayRollApp/sessionPage.html',{'sessions':sessions})
+
+def Create_Session(request):
+    if request.method == 'POST':
+        session_name = request.POST.get('session_name')
+        session_value = request.POST.get('session_value')
+        request.session[session_name] = session_value
+        response = HttpResponseRedirect(reverse('Session_Page'))
+        return response
+    else:
+        return JsonResponse({'message':'Invalid Request Method'})
+    
+def Clear_Session(request):
+    request.session.flush()
+    response = HttpResponseRedirect(reverse('Session_Page'))
+    return response
+
+def View_Session(request,session_name):
+    session_value = request.session.get(session_name)
+    return render(request,'PayRollApp/ViewSession.html',{'session_name':session_name,
+                                                             'session_value':session_value})
+def Delete_session(request,session_name):
+    response = HttpResponseRedirect(reverse('Session_Page'))
+    del request.session[session_name]
+    return response
+    
+    
