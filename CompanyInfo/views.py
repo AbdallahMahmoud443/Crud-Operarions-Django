@@ -89,4 +89,4 @@ def TransactionDemo(request):
     except Exception as e:
         return render(request,'CompanyInfo/TransactionDemo.html',{'Message':str(e)})
     return render(request,'CompanyInfo/TransactionDemo.html',{'Message':'success'})
-    
+

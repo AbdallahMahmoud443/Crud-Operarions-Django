@@ -1,0 +1,12 @@
+{% extends "./layout.html" %}
+
+{% block content %}
+    <div class="raw">
+        <div class="alert alert-success" role="alert">
+            <h4 class="alert-heading">{{cookie_name}}</h4>
+            <p>{{cookie_value}}</p>
+            <hr>
+            <p class="mb-0"><a href="{% url 'Cookie_Page' %}" class="alert-link">Back To Cookie Page</a></p>
+          </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "./layout.html" %}
+
+{% block content %}
+    <div class="row">
+        <h2>Browser Cookies</h2>
+        <table class="table table-striped ">
+            <thead>
+                <tr>
+                    <th>Key</th>
+                    <th>Value</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+          
+                {% for key,value in  cookies.items %}
+                <tr>
+                    <th>{{key}}</th>
+                    <th>{{value}}</th>
+                    <th> 
+                        <a href="{% url 'View_Cookie_Page' key %}" class="btn btn-primary">View</a>
+                        <a href="{% url 'Delete_Cookie_Page' key %}" class="btn btn-danger">Delete</a>
+                    
+                    </th>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="row w-25 mt-4">
+            <h3>Add Cookie</h3>
+            <form action="{% url 'add_Cookie_Page' %}" method="post">
+                {% csrf_token %}
+                    <div class="mb-3">
+                      <label for="Cookie_Name" class="form-label" >Cookie Name</label>
+                      <input type="text" class="form-control" id="Cookie_Name" name="cookie_name">
+                    </div>
+                    <div class="mb-3">
+                      <label for="Cookie_value" class="form-label">Cookie Value</label>
+                      <input type="text" class="form-control" id="Cookie_value" name="cookie_value">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Cookie</button> 
+                    <a href="{% url 'clear_Cookie_Page' %}" class="btn btn-danger w-auto">Clear All Cookies</a>
+            </form>
+            
+        </div>
+    </div>
+{% endblock content %}

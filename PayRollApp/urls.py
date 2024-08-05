@@ -10,4 +10,9 @@ urlpatterns = [
     path('cascadingselect/',views.cascadingSelect,name="cascadingSelectPage"),
     path('loadstate/',views.load_states,name='load_states'),
     path('loadcity/',views.load_Cities,name='load_cities'),
+    path('cookie',views.cookie_page,name='Cookie_Page'),
+    path('addcookie',views.add_cookie,name='add_Cookie_Page'),
+    path('clearcookie',views.clear_cookies,name='clear_Cookie_Page'),
+    path('viewcookie/<str:cookie_name>',views.view_cookie,name='View_Cookie_Page'),
+    path('deletecookie/<str:cookie_name>',views.delete_cookie,name='Delete_Cookie_Page'),
 ]

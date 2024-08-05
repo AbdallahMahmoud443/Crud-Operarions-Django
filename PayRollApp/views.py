@@ -1,4 +1,5 @@
-from django.shortcuts import render # type: ignore
+from django.shortcuts import render
+from django.urls import reverse # type: ignore
 
 from PayRollApp.forms import EmployeeForm, OnSiteEmployeesForm
 from PayRollApp.models import City, Employee, State  # type: ignore
@@ -6,7 +7,7 @@ from django.shortcuts import redirect # type: ignore
 from django.core.paginator import Paginator,PageNotAnInteger # type: ignore
 from django.conf import settings # type: ignore
 from django.db.models import Q # type: ignore
-from django.http import JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 
 def EmployeeList(request):
     # employees = Employee.objects.all() # To Get All Record In Table of Employee
@@ -129,4 +130,36 @@ def load_Cities(request):
     
     
     
+def cookie_page(request):
+    cookies = request.COOKIES
+    return render(request,'PayRollApp/cookie_page.html',{'cookies':cookies})
 
+
+def add_cookie(request):
+    if request.method == 'POST':
+        cookie_name = request.POST.get('cookie_name')
+        cookie_value = request.POST.get('cookie_value')
+        # cookie send wtih response 
+        # reverse method used => If you need to use something similar to the url template tag in your code
+        response = HttpResponseRedirect(reverse('Cookie_Page'))
+        response.set_cookie(cookie_name,cookie_value,120) # 120 => cookie age this cookies for two seconds (persistant cookie) 
+        return response
+    else:
+        return JsonResponse({'message':'Invalid Request Method'})
+    
+
+def clear_cookies(request):
+    response  = HttpResponseRedirect(reverse('Cookie_Page'))
+    for key in request.COOKIES:
+        response.delete_cookie(key)
+    return response
+
+def view_cookie(request,cookie_name):
+    cookie_value = request.COOKIES.get(cookie_name)
+    return render(request,'PayRollApp/viewcookie.html',{'cookie_name':cookie_name,
+                                                        'cookie_value':cookie_value})
+    
+def delete_cookie(request,cookie_name):
+    response  = HttpResponseRedirect(reverse('Cookie_Page'))
+    response.delete_cookie(cookie_name)
+    return response
